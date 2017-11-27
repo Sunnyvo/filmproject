@@ -1,0 +1,43 @@
+@media only screen and (max-width: 900px) {
+
+	}
+
+	.Search-Control {
+		margin: 20px;
+	
+	}
+
+	@media only screen and (max-width: 320px) {
+		.Search-Control {
+			margin: 20px;
+			width: 70%;
+
+
+		}
+		.MovieCard-Img{
+			max-width: 60%;
+		}
+		.App-ReFresh{
+			max-width: 60%;
+		}
+
+		.MovieCard-Content{
+			margin-left:10px;
+			margin-right: 10px;
+		}
+	}
+
+	@media only screen and (max-width: 560px) {
+		.Search-Control {
+			margin: 20px;
+			width: 70%;
+		}
+	}
+
+	@media only screen and (min-width: 560px) {
+		.MovieCard-Box{
+			/* min-width: 216px; */
+		}
+
+
+	}

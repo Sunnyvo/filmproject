@@ -3,8 +3,14 @@ import MovieCard from './MovieCard';
 import { Button } from 'bloomer';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import "./MovieList.css";
-
+import "./Responsive.css"
 export default class MovieList extends Component {
+
+	changeRating( newRating ) {
+		this.setState({
+			rating: newRating
+		});
+	}
 	render() {
 		const { movies, handleLoadMore, isLoading } = this.props;
 		const isLoadingMore = isLoading ? 'isLoading' : 'info';
