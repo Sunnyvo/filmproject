@@ -25,7 +25,7 @@ export default class MovieCard extends Component {
 			Popup.alert("Hello");
 		}
     return (
-      <Box style={{ marginBottom: "10px" }} className="MovieCard-Box">
+      <Box style={{ marginBottom: "10px" }} className="MovieCard-Box" id={this.props.movie.id}>
         <Title isSize={6}>{this.props.movie.title}</Title>
         <Grid fluid>
           <Row>
@@ -52,7 +52,7 @@ export default class MovieCard extends Component {
 
 }
 ReactDom.render(
-    <MovieCard />
+    <MovieCard-Box />
     // document.getElementById('popupContainer')
  );
 
