@@ -3,7 +3,10 @@ import { Box, Title, Content } from "bloomer";
 import { Grid, Row, Col } from "react-flexbox-grid";
 import "./MovieCard.css";
 import StarRatingComponent from "react-star-rating-component";
-import "./Responsive.css"
+import "./Responsive.css";
+import Popup from 'react-popup';
+import ReactDom from 'react-dom';
+
 export default class MovieCard extends Component {
 
   render() {
@@ -18,13 +21,16 @@ export default class MovieCard extends Component {
     }
 		let rating = this.props.movie.vote_average;
 		let release = this.props.movie.release_date;
+		const handlePopup = ()=>{
+			Popup.alert("Hello");
+		}
     return (
       <Box style={{ marginBottom: "10px" }} className="MovieCard-Box">
         <Title isSize={6}>{this.props.movie.title}</Title>
         <Grid fluid>
           <Row>
             <Col xs={12} sm={6}>
-              <img src={imgLink} alt="logo" className="MovieCard-Img" />
+              <img src={imgLink} alt="logo" className="MovieCard-Img" onClick ={handlePopup} />
             </Col>
             <Col xs={12} sm={6}>
               <Content isSize={"small"} className="MovieCard-Content">
@@ -37,7 +43,16 @@ export default class MovieCard extends Component {
 							<p> <strong> Release: </strong>{release} </p>
           </Row>
         </Grid>
+
+
       </Box>
     );
-  }
+	}
+
+
 }
+ReactDom.render(
+    <MovieCard />
+    // document.getElementById('popupContainer')
+ );
+

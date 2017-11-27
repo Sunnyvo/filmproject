@@ -129,7 +129,7 @@ class App extends Component {
     //conditional render
     let content;
     if (this.state.isLoading) {
-      content = <h3>Loading...</h3>;
+      content =  <h3>Loading...</h3>;
     } else if (this.state.itemsSearch) {
       content = (
         <MovieList

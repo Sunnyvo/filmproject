@@ -27,8 +27,8 @@ Additional Requirements
 
 - Check out The Movie Database documentation. In particular:
 
-  []  The "Now Playing" endpoint.
-  []  The "Top Rated" endpoint
+  []x  The "Now Playing" endpoint.
+  [x]  The "Top Rated" endpoint
   []  The movie poster is available by appending the returned poster_path to https://image.tmdb.org/t/p/w342.
   []  The low resolution movie poster is available by appending the returned poster_path to https://image.tmdb.org/t/p/w45
   []  The high resolution movie poster is available by appending the returned poster_path to
