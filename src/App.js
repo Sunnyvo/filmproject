@@ -1,16 +1,24 @@
-import React, { Component } from "react";
-import Sunny from "./Sunny.png";
-import "./App.css";
-import { Container } from "bloomer";
-import MovieList from "./Movielist.jsx";
+//import request URL
+import Request from './http/Request.jsx';
+
+//import from component
+import MovieList from "./components/Movielist.jsx";
+import Navigation from "./components/Navigation";
+
+//import css
 import "bulma/css/bulma.css";
+import "./css/Responsive.css";
+import "./css/App.css";
+
+//import from library
 import { Control, Input, Icon } from "reactbulma";
 import FaRefresh from "react-icons/lib/fa/refresh";
 import FaSearch from "react-icons/lib/fa/search";
 import FaStar from "react-icons/lib/fa/star";
 import FaEye from "react-icons/lib/fa/eye";
 import FaCertificate from "react-icons/lib/fa/certificate";
-import "./Responsive.css";
+import React, { Component } from "react";
+import { Container } from "bloomer";
 
 class App extends Component {
   sleep(ms) {
@@ -19,12 +27,19 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    //the best way
+    this.handleTopLatest  = this.handleTopLatest.bind(this);
+    this.handleTopPopular = this.handleTopPopular.bind(this);
+    this.handleTopRating  = this.handleTopRating.bind(this);
     this.state = {
       movies: [],
       isLoading: true,
       page: 1,
-      endPoint: "now_playing"
+      endPoint: "now_playing",
+
+
     };
+
   }
 
   handleSearch = event => {
@@ -66,7 +81,9 @@ class App extends Component {
   }
 
   async loadMovieEndPoint(endPoint) {
-    this.movieresult = await this.fetchMovie(this.state.page, endPoint);
+    this.movieresult = await this.fetchMovie(this.state.page, endPoint).catch((error) => {
+      alert(error);
+    });
     this.setState({
       movies: this.movieresult,
       isLoading: false,
@@ -76,7 +93,9 @@ class App extends Component {
 
   async hand1leLoadMore() {
     const page = this.state.page + 1;
-    const newMovies = await this.fetchMovie(page,this.state.endPoint);
+    const newMovies = await this.fetchMovie(page,this.state.endPoint).catch((error) => {
+      alert(error);
+    });
     this.movieresult = this.movieresult.concat(newMovies);
     this.setState({
       page,
@@ -85,47 +104,57 @@ class App extends Component {
       endPoint: this.state.endPoint
     });
   }
-
-  render() {
-    //handle refresh page
-    const handleReFresh = () => {
-      this.setState({
+  async HandleSetState(end1Point){
+    this.setState({
         movies: [],
         isLoading: true,
         page: 1,
-        endPoint: this.state.endPoint
+        endPoint: end1Point
       });
-      this.loadMovieEndPoint(this.state.endPoint);
+  }
+      //handle refresh page
+  async handleReFresh () {
+      await this.HandleSetState( this.state.endPoint).catch((error) => {
+      alert(error);
+    });
+      await this.loadMovieEndPoint( this.state.endPoint).catch((error) => {
+      alert(error);
+    });
     };
     //handle top rating
-    const handleTopRating = () => {
-      this.setState({
-        movies: [],
-        isLoading: true,
-        page: 1,
-        endPoint: "top_rated"
-      });
-      this.loadMovieEndPoint("top_rated");
+    async handleTopRating () {
+      await this.HandleSetState("top_rated").catch((error) => {
+      alert(error);
+    });
+      await this.loadMovieEndPoint(this.state.endPoint).catch((error) => {
+      alert(error);
+    });
     };
-    const handleTopPopular = () => {
-      this.setState({
-        movies: [],
-        isLoading: true,
-        page: 1,
-        endPoint: "popular"
-      });
-      this.loadMovieEndPoint("popular");
+    async handleTopPopular ()  {
+      await this.HandleSetState("popular").catch((error) => {
+      alert(error);
+    });
+      await this.loadMovieEndPoint(this.state.endPoint).catch((error) => {
+      alert(error);
+    });
     };
 
-    const handleTopLatest = () => {
-      this.setState({
-        movies: [],
-        isLoading: true,
-        page: 1,
-        endPoint: "latest"
-      });
-      this.loadMovieEndPoint("latest");
+    async handleTopLatest () {
+      await this.HandleSetState("upcoming").catch((error) => {
+      alert(error);
+    });
+      await this.loadMovieEndPoint(this.state.endPoint).catch((error) => {
+      alert(error);
+    });
     };
+//////////////////////////////////////////////////////////////
+    // the better way
+    //handleTopLatest  = () => {this.handleTopLatest()};
+    //handleTopPopular = () => {this.handleTopLatest()};
+    //handleTopRating  = () => {this.handleTopRating()}
+//////////////////////////////////////////////////////////////
+    render() {
+
     //conditional render
     let content;
     if (this.state.isLoading) {
@@ -147,16 +176,35 @@ class App extends Component {
         />
       );
     }
+    const navigation = (
 
+      <Navigation
+//////////////////////////////////////////////////////////////////
+       // the best way
+        hand1leTopLatest  = {this.handleTopLatest}
+        hand1leTopPopular = {this.handleTopPopular}
+        hand1leTopRating  = {this.handleTopRating}
+//////////////////////////////////////////////////////////////////
+       // the better way
+       // hand1leTopLatest  = {this.handleTopLatest}
+       // hand1leTopPopular = {this.handleTopPopular}
+       // hand1leTopRating  = {this.handleTopRating}
+//////////////////////////////////////////////////////////////////
+       // the easiest way
+       // hand1leTopLatest  = {() => this.hand1leTopLatest()}  or { this.hand1leTopLatest.bind(this)}
+       // hand1leTopRating  = {() => this.handleTopRating()  }
+       // hand1leTopPopular = {() => this.handleTopPopular() }
+      />
+//////////////////////////////////////////////////////////////////
+    )
     return (
       <Container>
         <div className="App">
           <header className="App-header">
-            <img src={Sunny} className="App-logo" alt="logo" />
-            <h1 className="App-title">Sunny Cinema</h1>
+             {navigation}
           </header>
           <Container className="filter-list">
-            <a href="#" onClick={handleReFresh} className="">
+            <a href="#" onClick= {() => this.handleReFresh()} className="">
               <FaRefresh size={50} className="App-ReFresh" />
             </a>
             <Control hasIconsLeft className="Search-Control">
@@ -172,18 +220,6 @@ class App extends Component {
                   <FaSearch />
                 </Icon>
               </div>
-              <a href="#" onClick={handleTopRating} className="App-Star">
-                <FaStar size={20}  /> Top Rate
-              </a>
-
-              <a href="#" onClick={handleTopPopular} className="App-Eye">
-                <FaEye size={20}  /> Popular
-              </a>
-
-              <a href="#" onClick={handleTopLatest} className="App-Latest">
-                <FaCertificate size={20}  /> Latest
-              </a>
-
             </Control>
           </Container>
           <Container className="App-ContentContainer">{content}</Container>

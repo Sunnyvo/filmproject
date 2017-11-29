@@ -1,0 +1,12 @@
+.MovieCard-Col{
+  /* display: table-cell; */
+}
+
+.MovieCard-Content{
+  text-align: left;
+}
+
+.MovieCard-Box{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}

@@ -1,0 +1,28 @@
+.Navigation-Bar{
+	background-color: #244631 !important;
+}
+
+.navbar-item {
+	color: white !important;
+}
+
+.navbar-item:hover
+{
+	background-color: #1D4C7C;
+	cursor: pointer;
+}
+.navbar-dropdown{
+	background-color: #407BB6 !important;
+}
+
+.navbar-dropdown.navbar-item:hover{
+	background-color: #1D4C7C;
+	cursor: pointer;
+}
+.navbar-link{
+	color: white !important;
+}
+.navbar-link:hover{
+color: #244631 !important;
+}
+
